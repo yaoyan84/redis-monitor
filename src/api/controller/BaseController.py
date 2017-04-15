@@ -3,14 +3,29 @@ import tornado.ioloop
 import tornado.web
 import dateutil.parser
 import redis
+import json
+import os
 
+def get_settings():
+    return json.load(open(os.path.abspath('.')+ "/redis_live.conf"))
+    
+def get_password(ip):
+    config = get_settings()
+    servers= config["RedisServers"]
+    data=[]
+    for server in servers:
+        if(server.get('server')==ip):
+            return  server.get('password') 	
+	
 class BaseController(tornado.web.RequestHandler):
 
     stats_provider = RedisLiveDataProvider.get_provider()
-    
+    config = get_settings()
+    servers= config["RedisServers"]
+	
     def getStatsPerServer(self, server):
         try:
-            connection = redis.Redis(host=server[0], port=(int)(server[1]), db=0,socket_timeout=0.1)
+            connection = redis.Redis(host=server[0], port=(int)(server[1]),password=get_password(server[0]), db=0,socket_timeout=0.1)
             info = connection.info()
             # when instances down ,this maybe slowly...
             info.update({
@@ -27,7 +42,8 @@ class BaseController(tornado.web.RequestHandler):
                 connected_slaves = (int)(info["connected_slaves"])
                 slaves = ""
                 for i in range(0, connected_slaves):
-                    slaves += str(info["slave" + (str)(i)])
+                    #slaves += str(info["slave" + (str)(i)])
+                    slaves += str(info["slave" + (str)(i)]["ip"])+":"+str(info["slave" + (str)(i)]["port"])+","+str(info["slave" + (str)(i)]["state"])
             else:
                 master_host = info["master_host"]
                 master_port = (str)(info["master_port"])

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="js/libs/bootstrap/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="js/libs/tooltip.css">
+  <link rel="stylesheet" type="text/css" href="js/libs/tooltip.css">
+    <title>Live - Redis Monitor</title>
 </head>
 <body>  
   
@@ -15,9 +17,11 @@
             <a class="brand" href="./index.html" style="background-color:red;">
               <strong>Live</strong>
             </a>
+            <!--
              <a class="brand" href="./settings.html">
               <strong>Settings</strong>
             </a>
+            -->
             <form class="form-inline" style="float:right;margin-left:20px;margin-bottom:0px" onsubmit="return false;">
       <div style="">
         <div class="btn-group" style="display:block;float:left">
@@ -352,7 +356,8 @@
   </script>
 
  <!-- ================================================== -->
-  <script type="text/x-handlebars-template" id="status-widget-template">
+ <!-- 
+ <script type="text/x-handlebars-template" id="status-widget-template">
     <div class="span12" style="margin-left:0px">
       <div class="row-fluid">              
         <div class="span4">
@@ -381,7 +386,7 @@
   </div>
  </div> 
   </script>
-
+-->
   <!-- Top Commands widget template 
   ================================================== -->
   <script type="text/x-handlebars-template" id="top-commands-widget-template">
@@ -396,7 +401,7 @@
     <div id="top-commands-widget-chart"></div>    
   </script>
 
-  <!-- Top Keys widget template 
+  <!-- Top Keys widget template
   ================================================== -->
   <script type="text/x-handlebars-template" id="top-keys-widget-template">
     <div class="row-fluid">              
@@ -408,6 +413,6 @@
       </div>      
     </div>
     <div id="top-keys-widget-chart"></div>    
-  </script> 
+  </script>
 </body>
 </html>
